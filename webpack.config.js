@@ -35,14 +35,10 @@ module.exports = {
                 loader: 'html-loader'
             },
             {
-                test: /\.(scss)$/,
-                use: [
-                        {
-                            loader: 'style-loader'
-                        },
-                        {
-                            loader: 'css-loader'
-                        },
+                test: /.s[ac]ss$/,
+                use: ['style-loader', 'css-loader'],
+                use: ['style-loader','css-loader'
+                        ,
                         {
                             loader: 'postcss-loader',
                             options: {
@@ -62,3 +58,5 @@ module.exports = {
         ],
 }
 }
+
+// npm install --save-dev mini-css-extract-plugin

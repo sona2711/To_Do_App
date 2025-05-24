@@ -1,7 +1,8 @@
-import { Task} from "../Interface_Type/interface";
-import { TasksDisplay } from "../TaskTable/display";
 import { observable } from "../State/observable";
 import { state } from "../State/state";
+import { Task} from "../Interface_Type/interface";
+import { TasksDisplay } from "../TaskTable/display";
+
 
 
 
@@ -24,8 +25,7 @@ export class Form {
     render(){
         return `
                 <div class="form-wrapper">
-                    <form id="form">
-                        <div>
+                    <form id="form" >
                             <label for="heading" class="form-label">Heading:</label>
                             <input type="text" id="heading"  class="form-control" name="heading" required>
                             <label for="priority" class="form-label">Priority:</label>
@@ -34,14 +34,15 @@ export class Form {
                                 <option value="medium">Medium</option>
                                 <option value="high">High</option>
                             </select>
-                            <label for="date" class="form-label">Date</label>
-                            <input type="date" id="date" name="date"/>
-                        </div>
-                        <div>    
-                            <label for="description" class="form-label">Description</label>
-                            <textarea id="description"  class="form-control" name="description"></textarea>
-                        </div>    
-                        <button type="submit">Add Task</button>
+                            <div class="date-wrapper" style="width: max-content; height: min-content; border: 1px solid black">
+                                <span>Date</>
+                                <button class="calendar">&#9660</button>
+                            </div>
+                            <div>
+                                <label for="description" class="form-label">Description</label>
+                                <textarea id="description"  class="form-control" name="description"></textarea>
+                            </div>
+                            <button type="submit" id="submitBtn">Add Task</button>
                     </form>
                 </div>        
             `;
@@ -58,7 +59,7 @@ export class Form {
                 id: Date.now(),
                 heading: headingInput.value.trim(),
                 description: descriptionInput.value.trim(),
-                date: date.value.trim(),
+                date: "",
                 priority: priorityInput.value,
                 completed: false,
             };

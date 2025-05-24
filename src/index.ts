@@ -3,6 +3,7 @@ import { FilterUI } from "./Filter/filterUI";
 import { TaskFilter } from "./Filter/filter";
 import { TasksDisplay } from "./TaskTable/display";
 import { Task } from "./Interface_Type/interface";
+import { CalendarApp } from "./Calendar/calendar";
 
 
 import "./style.css";
@@ -41,7 +42,22 @@ class ToDoApp{
         const submitBtn = document.querySelector('#form') as HTMLFormElement;
         submitBtn.addEventListener('submit',this.form.submitForm);
 
+        const calendarBtn = document.querySelector('.calendar') as HTMLButtonElement;
+        calendarBtn.addEventListener("click", ()=>{
+            const container = document.querySelector('.container') as HTMLButtonElement;
+            if(!container){
+                const calendar = new CalendarApp('.date-wrapper');
+                return calendar.render();
+            }else{
+               
+                document.querySelector('.date-wrapper')?.removeChild(container)
+            }
 
+        });
+
+       
+        
+        
 
         const checkbox = document.getElementById("showCompleted") as HTMLInputElement;
         checkbox?.addEventListener('change', this.taskFilter.showCompletedTasks);

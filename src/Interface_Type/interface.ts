@@ -14,6 +14,17 @@ export interface IState{
     data: Task[]
 }
 
+export interface ICalendar{
+    container: Element;
+    current_date: Date;
+    current_year: number;
+    current_month: number;
+    getPrevMonth: ()=>void;
+    getNextMonth: ()=>void;
+    render:()=>void;
+
+}
+
 // export interface IForm {
 //     task:Task;
 //     form: HTMLFormElement;
