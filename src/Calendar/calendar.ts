@@ -9,24 +9,18 @@ export class CalendarApp implements ICalendar{
     current_year;
     current_month;
     parentNode;
+    value: string | undefined;
 
     constructor(selector:string){
         this.parentNode = document.querySelector(selector) as HTMLDivElement;
         this.container = document.createElement("div") as HTMLDivElement;
         this.container.className = "container";
-        
+
         this.current_date = new Date();
         this.current_year = this.current_date.getFullYear();
         this.current_month = this.current_date.getMonth();
+        this.value = "";
         this.render();
-
-        const days = document.querySelectorAll(".day:not(.inactive)");
-        days.forEach((day) => {
-            day.addEventListener("click", (event: Event)=>{
-                return console.log(event)
-                // return (event.target as HTMLElement).attributes.data_id.value 
-            })
-        })
     }
 
     getPrevMonth (){
@@ -76,8 +70,21 @@ export class CalendarApp implements ICalendar{
         document.querySelector('.prev-btn')?.addEventListener('click', this.getPrevMonth );
         document.querySelector('.next-btn')?.addEventListener('click', this.getNextMonth);
 
-        this.parentNode.appendChild(this.container);
+        const activeDays = document.querySelectorAll(".day:not(.inactive)");
+        activeDays.forEach((day) => {
+            day.addEventListener("click", (event: Event):string | undefined=>{
+                const value = (event.target as HTMLElement).attributes.getNamedItem("data_id")?.value ;
+                const date_wrapper = document.querySelector('#date') as HTMLDivElement;
+                value ?  date_wrapper?.setAttribute("value", value): date_wrapper.setAttribute("value", "");
 
+                const container = document.querySelector('.container') as HTMLButtonElement;
+                date_wrapper?.removeChild(container);
+                return value;
+                
+            })
+        })
+
+        this.parentNode?.append(this.container);
     }
 
 }

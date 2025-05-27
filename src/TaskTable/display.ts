@@ -61,29 +61,33 @@ export class TasksDisplay {
         return this.table
     }
 
-    // display(filteredList: Task[], element: HTMLTableElement){
-    //     this.filteredTasks = filteredList
-    //     filteredList.forEach((task)=>{
-    //         const row = document.createElement("tr") as HTMLTableRowElement
-    //         row.innerHTML = `
-    //             <td>
-    //                 <input type="checkbox" class="complete" name="complete" value="${task.id}"/>
-    //             </td>
-    //             <td>${task.heading}</td>
-    //             <td>${task.priority}</td>
-    //             <td>${task.date}</td>
-    //         `
-    //         element.appendChild(row)
-    //     })
+    display(element: HTMLTableElement): HTMLElement{
+        const row = document.createElement("tr") as HTMLTableRowElement
+        state.data.forEach((task)=> {
+            if(task.id !== row.getAttribute("id") ){
+                row.setAttribute("id", `${task.id}`)
+                row.innerHTML = `
+                <td>
+                    <input type="checkbox" class="complete" name="complete" value="${task.id}"/>
+                </td>
+                <td>${task.heading}</td>
+                <td>${task.priority}</td>
+                <td>${task.date}</td>
+            `
+            element.appendChild(row)
+            } 
+        })
+          
 
-    //     return element
-    // }
+        return element
+    }
+
+
 
     completeTask(event:any){
         const row = event.target.parentNode.parentNode;
         if(event.target.checked){
-            row.classList.add("table-success");
-            console.log(row)
+            row.style.backgroundColor = " #d7fd7f";
             const id = event.target.defaultValue;
             console.log( id)
             return state.data.find((task)=> {
@@ -95,7 +99,7 @@ export class TasksDisplay {
                 console.log(task)
             })
         }else{
-            row.classList.remove("table-success");
+            row.style.backgroundColor = " #d7fd7f";
             console.log(row);
         }
 

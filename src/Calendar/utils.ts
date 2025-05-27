@@ -7,6 +7,7 @@ export const getPrevDates = (dayIndex:number, year:number, month:number)=>{
         day.classList.add('day','d-flex-center','inactive');
         day.style.width = "30px";
         day.style.height = "30px";
+        day.style.color = "gray";
         day.style.marginRight = "10px"
         acc.push(day);
     }
@@ -23,6 +24,7 @@ export const getNextDates = (dayIndex:number, year:number, month:number)=>{
         day.classList.add('day','d-flex-center','inactive');
         day.style.width = "30px";
         day.style.height = "30px";
+        day.style.color = "gray";
         day.style.marginRight = "10px"
         acc.push(day);
     }
@@ -37,18 +39,18 @@ export const getCurrentDates = (currentDate:number,year:number,month: number)=>{
     for(let i = 1; i <= currentDate; i++){
         const day = document.createElement("span");
         day.textContent = `${i}`;
-        day.setAttribute("data_id", `${year}-${month + 1}-${i}`);
+        day.setAttribute("data_id", `${i}-${month + 1}-${year}`);
         day.style.width = "30px";
         day.style.height = "30px";
         day.style.marginRight = "10px";
-        day.style.color = "blue";
         day.style.cursor = "pointer";
 
         day.classList.add('day','d-flex-center');
 
         if (i === today.getDate() && year === today.getFullYear() && month === today.getMonth()){
             day.classList.add('current-date');
-            day.style.color = "green"
+            day.style.color = "green";
+            day.style.border = "1px solid green";
         }
         acc.push(day);
     }

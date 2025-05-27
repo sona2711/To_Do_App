@@ -46,11 +46,11 @@ class ToDoApp{
         calendarBtn.addEventListener("click", ()=>{
             const container = document.querySelector('.container') as HTMLButtonElement;
             if(!container){
-                const calendar = new CalendarApp('.date-wrapper');
+                const calendar = new CalendarApp('#date');
                 return calendar.render();
             }else{
                
-                document.querySelector('.date-wrapper')?.removeChild(container)
+                document.querySelector('#date')?.removeChild(container);
             }
 
         });
@@ -86,10 +86,5 @@ class ToDoApp{
     }
 }
 
-const toDoApp= new ToDoApp();
+const toDoApp= new ToDoApp()
 
-
-// Unscoped package
-// npm uninstall -g <package_name>
-// Scoped package
-// npm uninstall -g <@scope/package_name>

@@ -15,31 +15,56 @@ export class TaskFilter {
 
     filterByText(event: any){
         const searchText = event.target.value;
-       
+        const tBody = document.querySelector(".tBody") as HTMLTableElement;
+        const rows= tBody.querySelectorAll("tr");
+        console.log(rows)
         const list = state.data.filter((task:Task)=> {
             return task.heading.toLowerCase().includes(searchText.toLowerCase()) ||
                 task.description.toLowerCase().includes(searchText.toLowerCase());
         });
-        console.log(list)
-        // const display = new TasksDisplay()
-        // const tBody = document.querySelector(".tBody") as HTMLTableElement;
-        // display.display(list, tBody);
-
-        // const completeCheckboxs = document.querySelectorAll(".complete");
-        // completeCheckboxs?.forEach((checkbox) => {
-        //     checkbox.addEventListener('change', display.completeTask);
-        // })
+    
+        rows.forEach((row)=>{
+            let id = row.getAttribute("id");
+            list.forEach((task)=> {
+                if(task.id == id){
+                    console.log(row);
+                    row.style.display = "";
+                }else{
+                    row.style.display = "none";
+                }
+            })
+        })
+        
+        const display = new TasksDisplay()
+        const completeCheckboxs = document.querySelectorAll(".complete");
+        completeCheckboxs?.forEach((checkbox) => {
+            checkbox.addEventListener('change', display.completeTask);
+        })
         
         return list
     
     }
 
     showCompletedTasks(event:any) {
+        const tBody = document.querySelector(".tBody") as HTMLTableElement;
+        const rows= tBody.querySelectorAll("tr");
         if(event.target.checked){
             console.log(state.data)
             const list = state.data.filter((task: Task) => {
                 return task.completed === true;
             });
+            rows.forEach((row)=>{
+            let id = row.getAttribute("id");
+            list.forEach((task)=> {
+                if(task.id == id){
+                    console.log(row);
+                    row.style.display = "block";
+                    
+                }else{
+                    row.style.display = "none";
+                }
+            })
+        })
         //     const display = new TasksDisplay()
         //     const tBody = document.querySelector(".tBody") as HTMLTableElement;
         //     display.display(list,tBody);

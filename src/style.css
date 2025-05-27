@@ -6,15 +6,46 @@
     font-size: 16px;
 }
 
-body {
-    background-color: #bb0707;
-    color: #333;
-}
 
-.form {
+
+.form-wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 40vh;
+    width: 60vw;
+    height: min-content;
+    padding: 10px;
+    background-color: #f1ffb2;
 }
+
+.filters-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 60vw;
+    height: 20vh;
+    padding: 10px;
+    background-color:#f1ffb2;
+}
+
+table {
+  border-spacing: 0;
+  width: 60vw;
+  border: 1px solid #e7dede;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:hover {
+  background-color: #c1f34b;
+}
+
+.error {
+    border: 1px solid red;
+}
+
