@@ -3,6 +3,7 @@ import { state } from "../State/state";
 import { Task} from "../Interface_Type/interface";
 import { TasksDisplay } from "../TaskTable/display";
 import { Validator } from "../Validation/validation";
+import { StorageService} from "../Storage/storage";
 
 
 
@@ -16,6 +17,7 @@ export class Form {
         priority: '',
         completed: false
     };
+   
     tasksDisplay;
     constructor() {
         this.render(); 
@@ -58,7 +60,8 @@ export class Form {
         const descriptionInput = document.querySelector('#description') as HTMLTextAreaElement;
         const date = document.querySelector('#date') as HTMLDivElement;
         const priorityInput = document.querySelector('#priority') as HTMLSelectElement;
-        
+        const  taskList: Task[] =  JSON.parse(StorageService.getItem("tasks")|| "[]")//namespase method usage
+
         console.log({
             heading: headingInput?.value.trim(),
             description: descriptionInput?.value.trim(),
@@ -88,12 +91,17 @@ export class Form {
 
             observable.emit("submitBtn", this.task);
             console.log({ state});
+
+            //Storage part
+            taskList.push(this.task);
+            StorageService.setItem("tasks", JSON.stringify(taskList))
         
         
             const tBody = document.querySelector(".tBody") as HTMLTableElement;
             const row = document.createElement("tr") as HTMLTableRowElement;
-        
-            state.data.forEach((task)=> {
+            
+            // state.data return back after hw checked
+            taskList?.forEach((task)=> {
                 if(task.id !== row.getAttribute("id") ){
                     row.setAttribute("id", `${task.id}`)
                     row.innerHTML = `
@@ -107,21 +115,14 @@ export class Form {
                     tBody.appendChild(row)
                 }
             })
-            
-             const display = new TasksDisplay()
+        
+            const display = new TasksDisplay()
             const completeCheckboxs = document.querySelectorAll(".complete");
             completeCheckboxs?.forEach((checkbox) => {
                 checkbox.addEventListener('change', display.completeTask);
-            })
-        
-        
-            
+            })  
         }
     
-      
-
-        
-            
     
         //reset the values
         headingInput.value = '';
@@ -134,10 +135,3 @@ export class Form {
 
 
 
-/*
- ● Heading
- ● Description
- ● Date
- ● Priority (dropdown list with more than one value) After adding a
- task to the list, the form fields are reset (clean) to their initial value
- (all except the date) */
